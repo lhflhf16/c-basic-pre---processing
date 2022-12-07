@@ -1,0 +1,27 @@
+#include<stddef.h>
+#include<stdio.h>
+
+#define OFFSETOF(struct_name,member_name) (int)(&(((struct_name*)0)->member_name))
+//结构成员地址-结构初始地址=成员偏移量
+//现将结构初始地址设置为0。将0强制类型转换为结构体指针，找到他的成员变量，再对该成员变量取地址，这时成员变量地址的整型值就是偏移量
+//把该地址强制类型转换为整形数就得到了偏移量。
+//该过程没有使用这些地址所对应的空间，所以不会造成非法访问。
+
+struct str
+{
+	int len;//0
+	int* p;//4
+	char arr[2];//8
+};
+
+int main()
+{
+	printf("%d\n", OFFSETOF(struct str, len));
+	printf("%d\n", OFFSETOF(struct str, p));
+	printf("%d\n", OFFSETOF(struct str, arr));
+
+	//printf("%d\n", offsetof(struct str, len));
+	//printf("%d\n", offsetof(struct str, p));
+	//printf("%d\n", offsetof(struct str, arr));
+	return 0;
+}
